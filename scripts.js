@@ -22,9 +22,31 @@ form.addEventListener("submit", (e) => {
 });
 
 function createNewTask(infoTask) {
-  const newTask = document.createElement("H3");
-  newTask.textContent = infoTask; //Asignando el nuevo texto de la tarea
-  taskContainer.appendChild(newTask); //La nueva tarea se posicionara en el taskContainer
+ 
+  const row = document.createElement('TR');// Creando una nueva columna
+
+  const tdIndex = document.createElement('TD'); //Creando primer columna del index
+  tdIndex.textContent = currentIDTask + 1; //Agregando el valor del index
+  row.appendChild(tdIndex); //La nueva tarea se posicionara en el taskContainer
+
+  const tdTask = document.createElement('TD');
+  tdTask.textContent = infoTask;
+  row.appendChild(tdTask);
+
+  const tdCheckBox = document.createElement('TD');//Creando la columna del checkbox
+  const checkBox = document.createElement('input'); //Dentro de dicha columna se crea un input
+  checkBox.type = 'checkbox'; // Se especifica que el input es un checkbox
+  tdCheckBox.appendChild(checkBox); //El checkbox se posiciona en la columna respectiva
+  row.appendChild(tdCheckBox);
+
+  const tdDeleteButton = document.createElement('TD');//Creamos la columna del delete
+  const deleteTaskButton = document.createElement('BUTTON');//Creamos el boton de borrar
+  deleteTaskButton.textContent = '❌' //Asignamos el contenido del boton, en este caso una X
+  row.appendChild(tdDeleteButton); // La columna es hija de row
+  tdDeleteButton.appendChild(deleteTaskButton); // El boton es hijo de la columna
+  
+  taskContainer.appendChild(row); //Toda esa fila será hija o se posicionará en el taskContainer que es el tbody
+
 }
 
 function createAlert(message){
