@@ -1,0 +1,136 @@
+:root {
+
+--fontHeading: 'Pt Sans', sans-serif;
+--fontparagraphs: 'Open Sans', sans-serif;
+
+/*Colors*/
+
+--fondo: #F4F4F4;
+--blanco: #fafafa;
+--negro: #000000;
+--primario: #22799f
+
+}
+
+html {
+    box-sizing: border-box; /*Hace que los paddings, borders, no afectan el ancho de los elementos*/
+    font-size: 62.5%; /*1rem == 10px*/
+}
+
+*, *:before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: var(--fontparagraphs);
+    font-size: 1.6rem;
+    line-height: 2;/*interlineado*/
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Ocupa el 100% del alto de la pantalla */
+    margin: 0;
+    background-color: #f4f4f4; /* Opcional: fondo para mejor visibilidad */
+}
+
+h1, h2, h3, h4, th, td, tr, thead {
+    font-family: var(--fontHeading);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 4.8rem;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+h3 {
+    font-size: 3.2rem;
+}
+
+h4 {
+    font-size: 3rem;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centra el contenido dentro del contenedor */
+}
+
+.myForm{
+    
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    padding: .5rem 2rem;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    width: auto;
+    background:white ;
+}
+
+.input-container input {
+    text-align: center;
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 5px;
+}
+
+.button {
+    height: 3rem;
+    border-radius: 50%;
+    padding: auto;
+}
+
+/* Estilo para la tabla */
+#taskTable {
+    width: 80%; /* Ajusta el ancho total de la tabla */
+    max-width: 600px; /* Evita que crezca demasiado */
+    margin: 20px auto; /* Centra la tabla horizontalmente */
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para las filas y celdas */
+#taskTable th, #taskTable td {
+    padding: 10px;
+    text-align: center; /* Centra el texto */
+    border: 1px solid #ddd;
+}
+
+/* Ajustar el ancho de cada columna */
+#taskTable th:nth-child(1), #taskTable td:nth-child(1) {
+    width: 10%; /* Índice */
+}
+
+#taskTable th:nth-child(2), #taskTable td:nth-child(2) {
+    width: 70%; /* Tarea */
+}
+
+#taskTable th:nth-child(3), #taskTable td:nth-child(3),
+#taskTable th:nth-child(4), #taskTable td:nth-child(4) {
+    width: 20%; /* Checkbox y botón de eliminar */
+}
+
+/* Mejor apariencia para el botón de eliminar */
+#taskTable button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}

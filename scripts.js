@@ -56,7 +56,7 @@ function createNewTask(infoTask, index) {
   deleteTaskButton.textContent = '❌' //Asignamos el contenido del boton, en este caso una X
   row.appendChild(tdDeleteButton); // La columna es hija de row
   tdDeleteButton.appendChild(deleteTaskButton); // El boton es hijo de la columna
-
+  deleteTaskButton.addEventListener("click", () => deleteTask(index))
   taskContainer.appendChild(row); //Toda esa fila será hija o se posicionará en el taskContainer que es el tbody
 
   if (tasks[index].completed) {
@@ -87,3 +87,8 @@ function toggleTaskCompleted(index) {
   renderTasks(); //Vuelve a renderizar las tareas
 }
 
+function deleteTask(index){
+  tasks.splice(index, 1);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  renderTasks();
+}
