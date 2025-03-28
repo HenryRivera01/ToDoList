@@ -8,7 +8,8 @@
 --fondo: #F4F4F4;
 --blanco: #fafafa;
 --negro: #000000;
---primario: #22799f
+--primario: #234bed;
+--primarioclaro: #9caef7;
 
 }
 
@@ -54,16 +55,14 @@ h4 {
     font-size: 3rem;
 }
 
+
+
 .container {
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center; /* Centra el contenido dentro del contenedor */
-}
-
-.myForm{
-    
 }
 
 .input-container {
@@ -86,10 +85,17 @@ h4 {
     padding: 5px;
 }
 
+.input-container:focus-within{/*se aplica cuando cualquier elemento dentro de el este en foco*/
+    border-color: var(--primarioclaro);
+    box-shadow: 0 0 5px var(--primario); /* Efecto de brillo alrededor debe ser un color mas fuerte que el del borde */
+}
+
+
 .button {
     height: 3rem;
     border-radius: 50%;
     padding: auto;
+    
 }
 
 /* Estilo para la tabla */
@@ -104,25 +110,13 @@ h4 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+
+
 /* Estilo para las filas y celdas */
 #taskTable th, #taskTable td {
-    padding: 10px;
+    padding: .5rem;
     text-align: center; /* Centra el texto */
     border: 1px solid #ddd;
-}
-
-/* Ajustar el ancho de cada columna */
-#taskTable th:nth-child(1), #taskTable td:nth-child(1) {
-    width: 10%; /* Índice */
-}
-
-#taskTable th:nth-child(2), #taskTable td:nth-child(2) {
-    width: 70%; /* Tarea */
-}
-
-#taskTable th:nth-child(3), #taskTable td:nth-child(3),
-#taskTable th:nth-child(4), #taskTable td:nth-child(4) {
-    width: 20%; /* Checkbox y botón de eliminar */
 }
 
 /* Mejor apariencia para el botón de eliminar */
@@ -134,3 +128,14 @@ h4 {
     cursor: pointer;
     border-radius: 5px;
 }
+
+/*cHECKBOX*/
+
+input[type="checkbox"] {
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+    accent-color: var(--primarioclaro);
+}
+
+

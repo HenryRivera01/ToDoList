@@ -30,7 +30,7 @@ form.addEventListener("submit", (e) => {
 
 function createNewTask(infoTask, index) {
 
-  const row = document.createElement('TR');// Creando una nueva columna
+  const row = document.createElement('TR');// Creando una nueva fila
 
   //Columna 1: indexTask
   const tdIndex = document.createElement('TD'); //Creando primer columna del index
@@ -60,7 +60,7 @@ function createNewTask(infoTask, index) {
   taskContainer.appendChild(row); //Toda esa fila será hija o se posicionará en el taskContainer que es el tbody
 
   if (tasks[index].completed) {
-    tdCheckBox.style.textDecoration = "line-through"; //Tacha la tarea si está marcada
+    tdTask.style.textDecoration = "line-through"; //Tacha la tarea si está marcada
   }
 
 }
