@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTasks();
 });
 
+window.addEventListener("resize", () => {
+  if (window.innerHeight < 500) { // Si la pantalla se reduce (por el teclado)
+    document.body.style.paddingBottom = "200px"; // Agregar espacio
+  } else {
+    document.body.style.paddingBottom = "0"; // Restaurar espacio
+  }
+});
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
