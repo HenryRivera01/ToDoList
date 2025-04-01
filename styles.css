@@ -121,7 +121,7 @@ h4 {
 
 /* Mejor apariencia para el botón de eliminar */
 #taskTable button {
-    background: red;
+    background: rgba(228, 8, 8, 0.841);
     color: white;
     border: none;
     padding: 5px;

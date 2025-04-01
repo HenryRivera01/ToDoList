@@ -19,8 +19,17 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  const newTask = { name: currentTask, completed: false }; // Crear objeto tarea
-  tasks.push(newTask); // Agregar objeto en vez de solo texto
+  const editingIndex = form.getAttribute("data-editing-index");
+  //Si estamos editando, actualizar la tarea en el array
+  if (editingIndex !== null){
+    tasks[editingIndex].name = currentTask;
+    form.removeAttribute("data-editing-index");
+  }else{
+    //Si no estamos editando, agregar una nueva tarea
+    const newTask = { name: currentTask, completed: false }; // Crear objeto tarea
+    tasks.push(newTask); // Agregar objeto en vez de solo texto
+  }
+
   localStorage.setItem('tasks', JSON.stringify(tasks)); // Guardar correctamente
 
   renderTasks();
@@ -51,9 +60,20 @@ function createNewTask(infoTask, index) {
   tdCheckBox.appendChild(checkBox); //El checkbox se posiciona en la columna respectiva
   row.appendChild(tdCheckBox);
 
+  //Columna 4: Editar
+  const tdEditButton = document.createElement('TD');
+  const editTaskButton = document.createElement('BUTTON');
+  editTaskButton.textContent = '✏️';
+
+  editTaskButton.addEventListener("click", ()=>editTask(index))
+
+  tdEditButton.appendChild(editTaskButton);
+  row.appendChild(tdEditButton);
+
+  //Columna 5: Delete
   const tdDeleteButton = document.createElement('TD');//Creamos la columna del delete
   const deleteTaskButton = document.createElement('BUTTON');//Creamos el boton de borrar
-  deleteTaskButton.textContent = '❌' //Asignamos el contenido del boton, en este caso una X
+  deleteTaskButton.textContent = '🗑️' //Asignamos el contenido del boton, en este caso una X
   row.appendChild(tdDeleteButton); // La columna es hija de row
   tdDeleteButton.appendChild(deleteTaskButton); // El boton es hijo de la columna
   deleteTaskButton.addEventListener("click", () => deleteTask(index))
@@ -64,6 +84,7 @@ function createNewTask(infoTask, index) {
   }
 
 }
+  
 
 function createAlert(message) {
   const alerta = document.createElement('P')
@@ -78,6 +99,16 @@ function createAlert(message) {
 
 function renderTasks(){
   taskContainer.innerHTML = ""; // Limpia el contenedor antes de renderizar
+  console.log(tasks.length);
+  //Si no hay tareas, se oculta la tabla
+  if(tasks.length===0){
+    document.getElementById('taskTable').style.display = "none";
+  }else{
+    //Si hay aunque sea una tarea se muestra la tabla
+    document.getElementById('taskTable').style.display = "table";
+  }
+
+  //Se recorren las tareas y asi mismo se renderizan y crean las filas en la tabla
   tasks.forEach((task, index) => createNewTask(task, index));
 }
 
@@ -88,7 +119,24 @@ function toggleTaskCompleted(index) {
 }
 
 function deleteTask(index){
-  tasks.splice(index, 1);
+  tasks.splice(index, 1);//Eliminamos la tarea del array
   localStorage.setItem('tasks', JSON.stringify(tasks));
-  renderTasks();
+  renderTasks();//actualizamos la tabla
+}
+
+function editTask(index){
+
+  const inputField = document.querySelector("#myForm input[name='taskname']")//Obtenemos el input
+
+  if(!inputField) {
+    console.error("No se encontro el campo de entrada");
+    return;
+  }
+
+  inputField.value = tasks[index].name; //Cargar la tarea en el input actual
+  inputField.focus();// Enfocamos el input para que el usuario escriba
+
+  //
+  form.setAttribute("data-editing-index", index);
+
 }
