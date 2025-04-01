@@ -31,7 +31,8 @@ body {
     align-items: center; /* Centra verticalmente */
     height: 100vh; /* Ocupa el 100% del alto de la pantalla */
     margin: 0;
-    background-color: var(--primarioclaro); /* Opcional: fondo para mejor visibilidad */
+    background: rgb(63,131,251);
+    background: radial-gradient(circle, rgba(63,131,251,1) 0%, rgba(0,0,0,1) 100%);
 }
 
 h1, h2, h3, h4, th, td, tr, thead {
@@ -55,10 +56,16 @@ h4 {
     font-size: 3rem;
 }
 
+.mainContainer{
+    text-align: center;
+}
 
+.mainContainer h2 {
+    color: var(--blanco);
+}
 
 .container {
-    background: var(--blanco);
+    background: rgba(255, 255, 255, 0.725);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
