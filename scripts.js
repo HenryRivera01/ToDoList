@@ -3,6 +3,8 @@ const tasks = [];
 
 const form = document.getElementById("myForm");
 const taskContainer = document.getElementById("taskContainer");
+const inputTask = document.querySelector(".input"); // Input donde se escribe la tarea
+const taskForm = document.getElementById("myForm"); // Formulario de la tarea
 
 document.addEventListener("DOMContentLoaded", () => {
   const storedTasks = JSON.parse(localStorage.getItem('tasks')) || []; //Recupera tareas previas o crea un array vacio si no habia nada guardado
@@ -11,10 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("resize", () => {
-  if (window.innerHeight < 500) { // Si la pantalla se reduce (por el teclado)
-    document.body.style.paddingBottom = "200px"; // Agregar espacio
+  if (window.innerHeight < 500) { // Detecta cuando aparece el teclado en móviles
+    const inputRect = inputTask.getBoundingClientRect(); // Obtiene la posición del input
+    const spaceNeeded = window.innerHeight - inputRect.bottom - 20; // Calcula el espacio faltante
+
+    if (spaceNeeded < 0) { // Si el input está tapado
+      document.body.style.paddingBottom = `${Math.abs(spaceNeeded) + 100}px`; // Ajusta el padding dinámicamente
+      taskForm.scrollIntoView({ behavior: "smooth", block: "center" }); // Centra el formulario en la vista
+    }
   } else {
-    document.body.style.paddingBottom = "0"; // Restaurar espacio
+    document.body.style.paddingBottom = "0"; // Restaura el padding cuando se oculta el teclado
   }
 });
 
