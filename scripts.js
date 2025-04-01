@@ -60,29 +60,30 @@ function createNewTask(infoTask, index) {
   tdCheckBox.appendChild(checkBox); //El checkbox se posiciona en la columna respectiva
   row.appendChild(tdCheckBox);
 
+  if (tasks[index].completed) {
+    tdTask.style.textDecoration = "line-through"; //Tacha la tarea si está marcada
+  }
+
   //Columna 4: Editar
   const tdEditButton = document.createElement('TD');
   const editTaskButton = document.createElement('BUTTON');
+  editTaskButton.classList.add('btnEdit');
   editTaskButton.textContent = '✏️';
 
   editTaskButton.addEventListener("click", ()=>editTask(index))
-
   tdEditButton.appendChild(editTaskButton);
   row.appendChild(tdEditButton);
 
   //Columna 5: Delete
   const tdDeleteButton = document.createElement('TD');//Creamos la columna del delete
   const deleteTaskButton = document.createElement('BUTTON');//Creamos el boton de borrar
+  deleteTaskButton.classList.add('btnDelete');
   deleteTaskButton.textContent = '🗑️' //Asignamos el contenido del boton, en este caso una X
   row.appendChild(tdDeleteButton); // La columna es hija de row
   tdDeleteButton.appendChild(deleteTaskButton); // El boton es hijo de la columna
   deleteTaskButton.addEventListener("click", () => deleteTask(index))
   taskContainer.appendChild(row); //Toda esa fila será hija o se posicionará en el taskContainer que es el tbody
-
-  if (tasks[index].completed) {
-    tdTask.style.textDecoration = "line-through"; //Tacha la tarea si está marcada
-  }
-
+  deleteTaskButton.classList.add("delete"); // Agregar clase
 }
   
 
@@ -99,7 +100,6 @@ function createAlert(message) {
 
 function renderTasks(){
   taskContainer.innerHTML = ""; // Limpia el contenedor antes de renderizar
-  console.log(tasks.length);
   //Si no hay tareas, se oculta la tabla
   if(tasks.length===0){
     document.getElementById('taskTable').style.display = "none";
@@ -110,18 +110,50 @@ function renderTasks(){
 
   //Se recorren las tareas y asi mismo se renderizan y crean las filas en la tabla
   tasks.forEach((task, index) => createNewTask(task, index));
+
+  const editingIndex = form.getAttribute("data-editing-index");
+  if (editingIndex !== null) {
+    const editButtons = document.querySelectorAll(".btnEdit");
+    if (editButtons[editingIndex]) {
+      editButtons[editingIndex].classList.add("editing");
+    }
+  }
 }
 
 function toggleTaskCompleted(index) {
   tasks[index].completed = !tasks[index].completed; //Cuando se llama a esta funcion con el index de una tarea esta linea cambia su estado de true a false
   localStorage.setItem("tasks", JSON.stringify(tasks)); //Guarda el estado del checkbox en localStorage
   renderTasks(); //Vuelve a renderizar las tareas
+
+  //Agregando la animación
+
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes[index].classList.add("bounce");
+
+  // Remover la clase después de la animación para que pueda repetirse
+  setTimeout(() => {
+    checkboxes[index].classList.remove("bounce");
+  }, 300);
 }
 
 function deleteTask(index){
+
+  const button = event.target; // Obtiene el botón que disparó el evento
+  button.classList.add("shake"); // Agregar la animación
+
+  setTimeout(() => { 
+  // Verificar si la tarea que se elimina es la misma que se está editando
+  const editingIndex = form.getAttribute("data-editing-index");
+  if (editingIndex !== null && parseInt(editingIndex) === index) {
+    form.removeAttribute("data-editing-index");
+    form.reset();
+    document.querySelectorAll(".btnEdit").forEach(btn => btn.classList.remove("editing"));
+  }
+
   tasks.splice(index, 1);//Eliminamos la tarea del array
   localStorage.setItem('tasks', JSON.stringify(tasks));
   renderTasks();//actualizamos la tabla
+  }, 300);
 }
 
 function editTask(index){
@@ -136,7 +168,13 @@ function editTask(index){
   inputField.value = tasks[index].name; //Cargar la tarea en el input actual
   inputField.focus();// Enfocamos el input para que el usuario escriba
 
-  //
+  // Resetear todos los botones de edición
+  document.querySelectorAll(".btnEdit").forEach(btn => btn.classList.remove("editing"));
+
+  // Agregar clase "editing" al botón de edición correspondiente
+  const editButtons = document.querySelectorAll(".btnEdit");
+  editButtons[index].classList.add("editing");
+
   form.setAttribute("data-editing-index", index);
 
 }

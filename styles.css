@@ -9,7 +9,7 @@
 --blanco: #fafafa;
 --negro: #000000;
 --primario: #234bed;
---primarioclaro: #9caef7;
+--primarioclaro: rgba(216, 236, 241, 0.427)
 
 }
 
@@ -31,7 +31,7 @@ body {
     align-items: center; /* Centra verticalmente */
     height: 100vh; /* Ocupa el 100% del alto de la pantalla */
     margin: 0;
-    background-color: #f4f4f4; /* Opcional: fondo para mejor visibilidad */
+    background-color: var(--primarioclaro); /* Opcional: fondo para mejor visibilidad */
 }
 
 h1, h2, h3, h4, th, td, tr, thead {
@@ -58,7 +58,7 @@ h4 {
 
 
 .container {
-    background: white;
+    background: var(--blanco);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -95,7 +95,7 @@ h4 {
     height: 3rem;
     border-radius: 50%;
     padding: auto;
-    
+    cursor: pointer;
 }
 
 /* Estilo para la tabla */
@@ -121,12 +121,23 @@ h4 {
 
 /* Mejor apariencia para el botón de eliminar */
 #taskTable button {
-    background: rgba(228, 8, 8, 0.841);
-    color: white;
     border: none;
     padding: 5px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+.btnEdit{
+    background-color: rgb(87, 137, 181); 
+}
+
+.btnDelete{
+    background-color: rgb(209, 125, 65); 
+}
+
+.editing{
+    background-color: #ffcc00; /* Color de resaltado */
+    transform: scale(1.1); /* Hacer el botón más grande */
 }
 
 /*cHECKBOX*/
@@ -135,7 +146,31 @@ input[type="checkbox"] {
     height: 2rem;
     width: 2rem;
     cursor: pointer;
-    accent-color: var(--primarioclaro);
+    accent-color: rgb(87, 181, 134);;
 }
+
+/*Animaciones*/
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  .bounce {
+    animation: bounce 0.3s ease-in-out;
+  }
+
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+  }
+  
+  .shake {
+    animation: shake 0.3s ease-in-out;
+  }
+
 
 
