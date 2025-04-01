@@ -104,8 +104,12 @@ function createNewTask(infoTask, index) {
   
 
 function createAlert(message) {
+
+  if (document.querySelector(".alerta")) return; // Si ya hay una alerta, no crear otra.
+
   const alerta = document.createElement('P')
   alerta.textContent = message;
+  alerta.classList.add("alerta"); // Agrega una clase para identificar la alerta
   form.appendChild(alerta);
 
   setTimeout(() => {
